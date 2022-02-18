@@ -1,17 +1,16 @@
 import React from 'react';
 import './style.css';
 
+import Title from './components/Title';
+import Search from './components/Search';
+import Card from './components/Card';
+
 export default function App() {
   return (
     <div>
-      <div className="title">
-        <h1 className="title-text">Posting List</h1>
-      </div>
-      <div className="search">
-        <input type="text" className="search-input" placeholder="Busqueda" />
-        <button className="search-button">Buscar</button>
-      </div>
-      <div className="list"></div>
+      <Title />
+      <Search />
+      <Card />
     </div>
   );
 }
