@@ -1,11 +1,17 @@
-import React from "react";
-import "./style.css";
+import React from 'react';
+import './style.css';
 
 export default function App() {
   return (
     <div>
-      <h1>Hello StackBlitz!</h1>
-      <p>Start editing to see some magic happen :)</p>
+      <div className="title">
+        <h1 className="title-text">Posting List</h1>
+      </div>
+      <div className="search">
+        <input type="text" className="search-input" placeholder="Busqueda" />
+        <button className="search-button">Buscar</button>
+      </div>
+      <div className="list"></div>
     </div>
   );
 }

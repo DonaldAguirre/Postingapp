@@ -1,3 +1,24 @@
-h1, p {
+* {
   font-family: Lato;
+  margin: 0;
+}
+
+.title {
+  text-align: center;
+  margin-top: 4%;
+}
+
+.search {
+  display: flex;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+.search-input {
+  height: 25px;
+  width: 200px;
+}
+
+.search-button {
+  margin-left: 20px;
 }
