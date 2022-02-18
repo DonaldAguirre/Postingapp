@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Search(props) {
+function Search() {
   return (
     <div className="search">
       <input type="text" className="search-input" placeholder="Busqueda" />
