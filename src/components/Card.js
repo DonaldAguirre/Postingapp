@@ -1,43 +1,78 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-class Card extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { articles: [] };
-  }
+function Card() {
+  const [comments, setComments] = useState([]);
+  const [tableComments, setTableComments] = useState([]);
+  const [searchList, setSearchList] = useState('');
 
-  componentDidMount() {
-    let result = fetch('https://jsonplaceholder.typicode.com/comments');
-
-    result
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({ articles: data });
+  const getPetition = async () => {
+    await axios
+      .get('https://jsonplaceholder.typicode.com/comments')
+      .then((response) => {
+        setComments(response.data);
+        setTableComments(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
       });
-    // let result = await axios.get(
-    //   'https://jsonplaceholder.typicode.com/comments'
-    // ).then( => (result) {
-    //   this.setState({ articles: data });
-    // })
-  }
+  };
 
-  render() {
-    return (
-      <div className="card">
-        {this.state.articles.map((article) => {
-          return (
-            <div className="card-text">
-              <h4>Post: {article.id}</h4>
-              <p>Nombre: {article.name}</p>
-              <p>Email: {article.email}</p>
-              <p>Cuerpo del mensaje: {article.body}</p>
-            </div>
-          );
-        })}
+  const handleChange = (e) => {
+    setSearchList(e.target.value);
+    filter(e.target.value);
+  };
+
+  const filter = (searchterm) => {
+    let searchResult = tableComments.filter((element) => {
+      if (
+        element.name
+          .toString()
+          .toLowerCase()
+          .includes(searchterm.toLowerCase()) ||
+        element.email
+          .toString()
+          .toLowerCase()
+          .includes(searchterm.toLowerCase())
+      ) {
+        return element;
+      }
+    });
+    setComments(searchResult);
+  };
+
+  useEffect(() => {
+    getPetition();
+  }, []);
+
+  return (
+    <div>
+      <div className="search">
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Search Name or Email"
+          value={searchList}
+          onChange={handleChange}
+        />
+        <button className="search-button">Search</button>
       </div>
-    );
-  }
+      {
+        <div className="card">
+          {comments.map((comment) => {
+            return (
+              <div className="card-text">
+                <h4>Post: {comment.id}</h4>
+                <p>Name: {comment.name}</p>
+                <p>Email: {comment.email}</p>
+                <p>Message body: {comment.body}</p>
+              </div>
+            );
+          })}
+        </div>
+      }
+    </div>
+  );
 }
 
 export default Card;
