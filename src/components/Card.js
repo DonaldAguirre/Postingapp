@@ -8,7 +8,7 @@ function Card() {
 
   const getPetition = async () => {
     await axios
-      .get('https://jsonplaceholder.typicode.com/comments')
+      .get('https://jsonplaceholder.typicode.com/posts')
       .then((response) => {
         setComments(response.data);
         setTableComments(response.data);
@@ -63,8 +63,7 @@ function Card() {
             return (
               <div className="card-text">
                 <h4>Post: {comment.id}</h4>
-                <p>Name: {comment.name}</p>
-                <p>Email: {comment.email}</p>
+                <p>Title: {comment.title}</p>
                 <p>Message body: {comment.body}</p>
               </div>
             );
