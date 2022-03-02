@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function Card() {
-  const [comments, setComments] = useState([]);
-  const [tableComments, setTableComments] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [tablePosts, setTablePosts] = useState([]);
   const [searchList, setSearchList] = useState('');
 
   const getPetition = async () => {
     await axios
       .get('https://jsonplaceholder.typicode.com/posts')
       .then((response) => {
-        setComments(response.data);
-        setTableComments(response.data);
+        setPosts(response.data);
+        setTablePosts(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -24,13 +24,13 @@ function Card() {
   };
 
   const filter = (searchterm) => {
-    let searchResult = tableComments.filter((element) => {
+    let searchResult = tablePosts.filter((element) => {
       if (
-        element.name
+        element.title
           .toString()
           .toLowerCase()
           .includes(searchterm.toLowerCase()) ||
-        element.email
+        element.body
           .toString()
           .toLowerCase()
           .includes(searchterm.toLowerCase())
@@ -38,7 +38,7 @@ function Card() {
         return element;
       }
     });
-    setComments(searchResult);
+    setPosts(searchResult);
   };
 
   useEffect(() => {
@@ -59,12 +59,12 @@ function Card() {
       </div>
       {
         <div className="card">
-          {comments.map((comment) => {
+          {posts.map((post) => {
             return (
               <div className="card-text">
-                <h4>Post: {comment.id}</h4>
-                <p>Title: {comment.title}</p>
-                <p>Message body: {comment.body}</p>
+                <h4>Post: {post.id}</h4>
+                <p>Title: {post.title}</p>
+                <p>Message body: {post.body}</p>
               </div>
             );
           })}
